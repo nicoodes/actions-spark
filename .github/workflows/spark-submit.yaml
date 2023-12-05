@@ -40,9 +40,11 @@ jobs:
       
       - run: pytest functions --junitxml=unit-testresults.xml
 
-      - name: Publis unit test results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: unit-testresults.xml
-
+          files: |
+            test-results/**/*.xml
+            test-results/**/*.trx
+            test-results/**/*.json
