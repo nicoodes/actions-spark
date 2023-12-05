@@ -1,0 +1,39 @@
+name: Spark Submit
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  spark-submit:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python:
+          - '3.10'
+          - '3.11'
+        spark:
+          - 3.3.2
+          - 3.4.0
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: vemonet/setup-spark@v1
+        with:
+          spark-version: ${{ matrix.spark }}
+          hadoop-version: '3'
+
+      - run: pip install -r requirements.txt
+      - run: pytest functions --junitxml=unit-testresults.xml
