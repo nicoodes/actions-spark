@@ -14,4 +14,4 @@ def test_sample_transform(spark_session):
     )
     new_df = sample_transform(test_df)
     assert new_df.count() == 1
-    assert new_df.toPandas().to_dict('list')['new_column'][0] == '70'
+    assert new_df.toPandas().to_dict('list')['new_column'][0] == 70
