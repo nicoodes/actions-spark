@@ -37,7 +37,6 @@ jobs:
           spark-version: ${{ matrix.spark }}
           hadoop-version: '3'
 
-      
       - run: pytest functions --junitxml=unit-testresults.xml
 
       - name: Publish Test Results
