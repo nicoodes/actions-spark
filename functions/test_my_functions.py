@@ -68,12 +68,22 @@ def test_prepare_products_for_scd2(spark_session):
     ]
     scdDF_schema=StructType([StructField('product_code', StringType(), True), StructField('product_name', StringType(), True), StructField('category', StringType(), True), StructField('description', StringType(), True), StructField('gender', StringType(), True), StructField('color', StringType(), True), StructField('size', StringType(), True), StructField('file_path', StringType(), False), StructField('file_size', LongType(), False), StructField('file_modification_time', TimestampType(), False), StructField('target_ProductId', LongType(), True), StructField('target_product_code', StringType(), True), StructField('target_product_name', StringType(), True), StructField('target_category', StringType(), True), StructField('target_description', StringType(), True), StructField('target_gender', StringType(), True), StructField('target_color', StringType(), True), StructField('target_size', StringType(), True), StructField('MERGEKEY', StringType(), True)])
     scdDF_new=spark.createDataFrame(scdDF_data, schema=scdDF_schema)
-    scdDF_new=scdDF_new.toPandas().sort_values(['product_code', 'MERGEKEY']).reset_index(drop=True)
+    scdDF_new=(
+        scdDF_new
+        .withColumn("file_modification_time", date_format("file_modification_time", "yyyy-MM-dd HH:mm:ss"))
+        .toPandas()
+        .sort_values(['product_code', 'MERGEKEY']).reset_index(drop=True)
+        )
     
 
     # ACT
     scdDF=prepare_products_for_scd2(targetDF, df)
-    scdDF=scdDF.toPandas().sort_values(['product_code', 'MERGEKEY']).reset_index(drop=True)
+    scdDF=(
+        scdDF
+        .withColumn("file_modification_time", date_format("file_modification_time", "yyyy-MM-dd HH:mm:ss"))
+        .toPandas()
+        .sort_values(['product_code', 'MERGEKEY']).reset_index(drop=True)
+        )
 
 
     # ASSERT
