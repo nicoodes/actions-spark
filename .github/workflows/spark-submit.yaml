@@ -1,14 +1,12 @@
 name: Spark Submit
-
 on:
   push:
     branches:
       - 'main'
-
+  workflow_dispatch:
 jobs:
   spark-submit:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         python:
@@ -17,30 +15,23 @@ jobs:
         spark:
           #- 3.3.2
           - 3.4.0
-
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
-
       - run: pip install -r requirements.txt
-
       - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-
       - uses: vemonet/setup-spark@v1
         with:
           spark-version: ${{ matrix.spark }}
           hadoop-version: '3'
-
       - run: pytest functions --junitxml=unit-testresults.xml
-
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: unit-testresults.xml
+          files: unit-testresults.xml 
