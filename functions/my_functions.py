@@ -20,12 +20,6 @@ def prepare_products_for_scd2(targetDF, df):
 	join_columns=["product_code"]
 	targetDF=targetDF
 	sourceDF=df
-	display(targetDF)
-	display(sourceDF)
-
-	print(targetDF.collect())
-	print(sourceDF.collect())
-
 
 	# Step 1 - left join to new data the main table
 	joinDF=(
@@ -60,11 +54,6 @@ def prepare_products_for_scd2(targetDF, df):
 	# Step 6 - apply merge statement
 
 	# skipped
-
-
-	#final
-	display(scdDF)
-	print(scdDF.collect())
 
 
 	return scdDF
