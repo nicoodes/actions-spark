@@ -56,7 +56,7 @@ def test_prepare_products_for_scd2(spark_session):
     Row(ProductId=6, product_code='PR0006', product_name='Product 6', category='accessories', description='accessories young girls', gender='female', color='blue', size='UN', file_path='dbfs:/FileStore/mnt/test_bucket/landing/products/2022_06_09_091705_products.csv', file_size=398, file_modification_time=datetime.datetime(2023, 12, 4, 16, 4, 21), active_status='Y', valid_from=datetime.date(2023, 1, 1), valid_to=datetime.date(9999, 12, 31))
                ]
     targetDF_schema=StructType([StructField('ProductId', LongType(), True), StructField('product_code', StringType(), False), StructField('product_name', StringType(), False), StructField('category', StringType(), True), StructField('description', StringType(), True), StructField('gender', StringType(), True), StructField('color', StringType(), True), StructField('size', StringType(), True), StructField('file_path', StringType(), False), StructField('file_size', LongType(), False), StructField('file_modification_time', TimestampType(), False), StructField('active_status', StringType(), False), StructField('valid_from', DateType(), False), StructField('valid_to', DateType(), False)])
-    targetDF_new=spark.createDataFrame(targetDF_data, schema=targetDF_schema)
+    targetDF=spark.createDataFrame(targetDF_data, schema=targetDF_schema)
 
     
     # expected result
