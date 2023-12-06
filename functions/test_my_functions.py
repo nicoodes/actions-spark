@@ -9,6 +9,8 @@ import datetime
 
 @pytest.mark.usefixtures("spark_session")
 def test_sample_transform(spark_session):
+
+
     test_df = spark_session.createDataFrame(
         [
             ('hobbit', 'Samwise', 5),
@@ -26,6 +28,9 @@ def test_sample_transform(spark_session):
 # mine
 @pytest.mark.usefixtures("spark_session")
 def test_prepare_products_for_scd2(spark_session):
+
+    spark=spark_session
+
     # ASSEMBLE
 
     # new data, 1 row new, 1 updated and 1 already in table with no changes
