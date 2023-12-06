@@ -40,7 +40,7 @@ def test_prepare_products_for_scd2(spark_session):
         Row(product_code='PR0098', product_name='Product 100', category='new', description='long skinny', gender='female', color='black', size='32', file_path='dbfs:/FileStore/mnt/test_bucket/landing/products/2022_06_09_091705_products___Copy___Copy.csv', file_size=240, file_modification_time=datetime.datetime(2023, 12, 6, 20, 23, 31))
     ]
     sourceDF_schema=StructType([StructField('product_code', StringType(), True), StructField('product_name', StringType(), True), StructField('category', StringType(), True), StructField('description', StringType(), True), StructField('gender', StringType(), True), StructField('color', StringType(), True), StructField('size', StringType(), True), StructField('file_path', StringType(), False), StructField('file_size', LongType(), False), StructField('file_modification_time', TimestampType(), False)])
-    df=spark.createDataFrame(sourceDF_data, schema=sourceDF_schema)
+    df=spark.createDataFrame(sourceDF_data, schema=sizeourceDF_schema)
 
     # table with data
     targetDF_data=[
