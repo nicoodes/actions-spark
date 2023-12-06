@@ -47,7 +47,7 @@ def prepare_products_for_scd2(targetDF, df):
 	dummyDF=filterDF.filter('target_ProductId is not null').withColumn('MERGEKEY', lit(None))
 
 	# Step 5 - combine step 3 and 4
-	scdDF=mergeDF.union(dummyDF)
+	# scdDF=mergeDF.union(dummyDF)
 	scdDF.createOrReplaceTempView('scdDF')
 
 	# Step 6 - apply merge statement
